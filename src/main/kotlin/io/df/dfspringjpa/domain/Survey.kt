@@ -1,17 +1,34 @@
 package io.df.dfspringjpa.domain
 
-import jakarta.persistence.*
-import java.util.*
+import jakarta.persistence.CascadeType
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import jakarta.persistence.Id
+import jakarta.persistence.OneToMany
+import jakarta.persistence.Table
+import java.util.UUID
 
 @Entity
 @Table(name = "surveys")
-class Survey(
-    @Column(nullable = false)
-    var title: String
-) {
+class Survey internal constructor(
+    // 필수 생성자 프로퍼티
+    title: String,
+
     @Id
     @Column(columnDefinition = "BINARY(16)")
-    var id: UUID = UUID.randomUUID()
+    var id: UUID? = null,
+) {
+    init {
+        initId()
+    }
+
+    private fun initId() {
+        this.id = this.id ?: UUID.randomUUID()
+    }
+
+    @Column(nullable = false)
+    var title: String = title
+        protected set
 
     @OneToMany(
         mappedBy = "survey",
@@ -20,9 +37,13 @@ class Survey(
     )
     val groups: MutableList<QuestionGroup> = mutableListOf()
 
-    fun addGroup(group: QuestionGroup) {
+    internal fun addGroup(group: QuestionGroup) {
         group.survey = this
         groups.add(group)
+    }
+
+    companion object {
+        fun create(title: String): Survey = Survey(title = title, id = null)
     }
 }
 

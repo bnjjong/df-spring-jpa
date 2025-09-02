@@ -15,17 +15,15 @@ class SurveyService(
 ) {
     @Transactional
     fun createSurvey(req: SurveyCreateRequest): UUID {
-        val survey = Survey(
-            title = req.title
-        )
+        val survey = Survey.create(title = req.title)
 
         // 계층 구성
         req.questionGroups.forEach { g ->
-            val group = QuestionGroup(name = g.name)
+            val group = QuestionGroup.create(name = g.name)
             survey.addGroup(group)
 
             g.questions.forEach { q ->
-                val question = Question(
+                val question = Question.create(
                     text = q.text,
                     type = q.type
                 )
@@ -35,6 +33,6 @@ class SurveyService(
 
         // cascade = CascadeType.ALL 로 루트만 저장해도 하위까지 저장
         val saved = repository.save(survey)
-        return saved.id
+        return requireNotNull(saved.id)
     }
 }

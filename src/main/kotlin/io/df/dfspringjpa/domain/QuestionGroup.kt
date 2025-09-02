@@ -13,18 +13,36 @@ import java.util.UUID
 
 @Entity
 @Table(name = "question_groups")
-class QuestionGroup(
-    @Column(nullable = false)
-    var name: String
-) {
+class QuestionGroup internal  constructor(
+    // 필수 생성자 프로퍼티
+    name: String,
+
     @Id
     @Column(columnDefinition = "BINARY(16)")
-    var id: UUID = UUID.randomUUID()
+    var id: UUID? = null,
+) {
+    init {
+        initId()
+    }
 
+    private fun initId() {
+        this.id = this.id ?: UUID.randomUUID()
+    }
+
+    @Column(nullable = false)
+    var name: String = name
+        protected set
+
+    // ================== parent ==================
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "survey_id", nullable = false, columnDefinition = "BINARY(16)")
+    @JoinColumn(
+        name = "survey_id",
+        nullable = false,
+        columnDefinition = "BINARY(16)")
     lateinit var survey: Survey
+    // ================== parent ==================
 
+    // ================== child ==================
     @OneToMany(
         mappedBy = "group",
         cascade = [CascadeType.ALL],
@@ -32,8 +50,14 @@ class QuestionGroup(
     )
     val questions: MutableList<Question> = mutableListOf()
 
-    fun addQuestion(question: Question) {
+    // support function
+    internal fun addQuestion(question: Question) {
         question.group = this
         questions.add(question)
+    }
+    // ================== child ==================
+
+    companion object {
+        fun create(name: String): QuestionGroup = QuestionGroup(name = name, id = null)
     }
 }
