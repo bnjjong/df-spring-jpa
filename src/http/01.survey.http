@@ -1,0 +1,22 @@
+POST localhost:8080/api/v1/surveys
+Content-Type: application/json
+
+{
+  "title": "고객 만족도 설문",
+  "questionGroups": [
+    {
+      "name": "기본 정보",
+      "questions": [
+        { "text": "성별을 선택해 주세요.", "type": "SINGLE_CHOICE" },
+        { "text": "나이를 입력해 주세요.", "type": "SHORT_TEXT" }
+      ]
+    },
+    {
+      "name": "서비스 평가",
+      "questions": [
+        { "text": "서비스 품질에 만족하셨나요?", "type": "SINGLE_CHOICE" },
+        { "text": "개선 사항을 적어 주세요.", "type": "LONG_TEXT" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+application:
+  id: kcd-ad-platform-user # 고유 식별자
+  version: 1.0 # 애플리케이션의 버전을 정의 (메타)
+
+spring:
+  application:
+    # 스프링 클라우드 환경에서 레지스트리(Eureka, Consul, Nacos 등)에 등록될 때 서비스 이름
+    # 로깅(MDC), 모니터링(Micrometer/Prometheus), 메시징(Kafka, RabbitMQ)에서도 태그로 사용
+    name: kcd-ad-platform-user # 스프링 부트 애플리케이션의 공식적인 이름
+  profiles:
+    active: local
+  jpa:
+    open-in-view: false # Hibernate의 **Open Session in View (OSIV)** 전략을 사용할지 여부
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info
+  info:
+    git:
+      mode: full
