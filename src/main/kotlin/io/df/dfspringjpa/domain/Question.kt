@@ -35,12 +35,14 @@ class Question internal  constructor(
     @Column(nullable = false)
     var type: String = type
         protected set
-
+    // ================== parent ==================
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id", nullable = false, columnDefinition = "BINARY(16)")
     lateinit var group: QuestionGroup
-
-    companion object {
-        fun create(text: String, type: String): Question = Question(text = text, type = type, id = null)
+        protected set
+    internal fun applyGroup(group: QuestionGroup) {
+        this.group = group
     }
+
+    // ================== parent ==================
 }

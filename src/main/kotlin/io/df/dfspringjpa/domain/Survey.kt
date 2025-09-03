@@ -5,6 +5,8 @@ import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
 import jakarta.persistence.OneToMany
+import jakarta.persistence.PrePersist
+import jakarta.persistence.PreUpdate
 import jakarta.persistence.Table
 import java.util.UUID
 
@@ -30,20 +32,29 @@ class Survey internal constructor(
     var title: String = title
         protected set
 
+    // ================== child ==================
     @OneToMany(
         mappedBy = "survey",
         cascade = [CascadeType.ALL],
         orphanRemoval = true
     )
-    val groups: MutableList<QuestionGroup> = mutableListOf()
+    var groups: MutableList<QuestionGroup>? = mutableListOf()
 
     internal fun addGroup(group: QuestionGroup) {
-        group.survey = this
-        groups.add(group)
+        group.applySurvey(this)
+        (groups ?: mutableListOf<QuestionGroup>().also { groups = it }).add(group)
     }
+    // ================== child ==================
 
-    companion object {
-        fun create(title: String): Survey = Survey(title = title, id = null)
+    @PrePersist
+    @PreUpdate
+    private fun validateBeforePersist() {
+        if (id == null) {
+            throw IllegalStateException("Survey.id must not be null before persist/update")
+        }
+        if (groups == null || groups!!.isEmpty()) {
+            throw IllegalStateException("Survey.groups must not be empty before persist/update")
+        }
     }
 }
 

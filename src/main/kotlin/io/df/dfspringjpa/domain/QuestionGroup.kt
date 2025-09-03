@@ -8,6 +8,8 @@ import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
 import jakarta.persistence.OneToMany
+import jakarta.persistence.PrePersist
+import jakarta.persistence.PreUpdate
 import jakarta.persistence.Table
 import java.util.UUID
 
@@ -40,6 +42,11 @@ class QuestionGroup internal  constructor(
         nullable = false,
         columnDefinition = "BINARY(16)")
     lateinit var survey: Survey
+        protected set
+
+    internal fun applySurvey(survey: Survey) {
+        this.survey = survey
+    }
     // ================== parent ==================
 
     // ================== child ==================
@@ -52,12 +59,17 @@ class QuestionGroup internal  constructor(
 
     // support function
     internal fun addQuestion(question: Question) {
-        question.group = this
+        question.applyGroup(this)
         questions.add(question)
     }
     // ================== child ==================
 
-    companion object {
-        fun create(name: String): QuestionGroup = QuestionGroup(name = name, id = null)
+    @PrePersist
+    @PreUpdate
+    private fun validateBeforePersist() {
+        if (id == null) {
+            throw IllegalStateException("QuestionGroup.id must not be null before persist/update")
+        }
+        // Not required by the issue, but you may also enforce non-empty questions if desired
     }
 }

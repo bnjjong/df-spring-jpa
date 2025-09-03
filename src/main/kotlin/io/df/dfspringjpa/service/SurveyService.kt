@@ -15,15 +15,15 @@ class SurveyService(
 ) {
     @Transactional
     fun createSurvey(req: SurveyCreateRequest): UUID {
-        val survey = Survey.create(title = req.title)
+        val survey = Survey(title = req.title)
 
         // 계층 구성
         req.questionGroups.forEach { g ->
-            val group = QuestionGroup.create(name = g.name)
+            val group = QuestionGroup(name = g.name)
             survey.addGroup(group)
 
             g.questions.forEach { q ->
-                val question = Question.create(
+                val question = Question(
                     text = q.text,
                     type = q.type
                 )

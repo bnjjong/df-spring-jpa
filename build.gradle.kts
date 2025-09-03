@@ -31,9 +31,18 @@ dependencies {
 
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     runtimeOnly("com.mysql:mysql-connector-j")
+
+    // Testing
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    // Kotest
+    testImplementation("io.kotest:kotest-runner-junit5:5.9.1")
+    testImplementation("io.kotest:kotest-assertions-core:5.9.1")
+    testImplementation("io.kotest.extensions:kotest-extensions-spring:1.3.0")
+    // JUnit Platform
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    // Embedded DB for tests
+    testRuntimeOnly("com.h2database:h2:2.3.232")
 }
 
 kotlin {
