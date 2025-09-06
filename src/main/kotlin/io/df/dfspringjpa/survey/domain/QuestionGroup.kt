@@ -1,4 +1,4 @@
-package io.df.dfspringjpa.domain
+package io.df.dfspringjpa.survey.domain
 
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column

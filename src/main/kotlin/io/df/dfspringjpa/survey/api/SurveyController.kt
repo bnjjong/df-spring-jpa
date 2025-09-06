@@ -1,6 +1,6 @@
-package io.df.dfspringjpa.api
+package io.df.dfspringjpa.survey.api
 
-import io.df.dfspringjpa.service.SurveyService
+import io.df.dfspringjpa.survey.service.SurveyService
 import jakarta.validation.Valid
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Size

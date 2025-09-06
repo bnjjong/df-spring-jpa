@@ -1,10 +1,10 @@
-package io.df.dfspringjpa.service
+package io.df.dfspringjpa.survey.service
 
-import io.df.dfspringjpa.api.SurveyCreateRequest
-import io.df.dfspringjpa.domain.Question
-import io.df.dfspringjpa.domain.QuestionGroup
-import io.df.dfspringjpa.domain.Survey
-import io.df.dfspringjpa.repository.SurveyRepository
+import io.df.dfspringjpa.survey.api.SurveyCreateRequest
+import io.df.dfspringjpa.survey.domain.Question
+import io.df.dfspringjpa.survey.domain.QuestionGroup
+import io.df.dfspringjpa.survey.domain.Survey
+import io.df.dfspringjpa.survey.repository.SurveyRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.UUID
