@@ -38,23 +38,24 @@ class Survey internal constructor(
         cascade = [CascadeType.ALL],
         orphanRemoval = true
     )
-    var groups: MutableList<QuestionGroup>? = mutableListOf()
+    val groups: MutableList<QuestionGroup> = mutableListOf()
 
     internal fun addGroup(group: QuestionGroup) {
         group.applySurvey(this)
-        (groups ?: mutableListOf<QuestionGroup>().also { groups = it }).add(group)
+        groups.add(group)
+//        (groups ?: mutableListOf<QuestionGroup>().also { groups = it }).add(group)
     }
     // ================== child ==================
 
-    @PrePersist
-    @PreUpdate
-    private fun validateBeforePersist() {
-        if (id == null) {
-            throw IllegalStateException("Survey.id must not be null before persist/update")
-        }
-        if (groups == null || groups!!.isEmpty()) {
-            throw IllegalStateException("Survey.groups must not be empty before persist/update")
-        }
-    }
+//    @PrePersist
+//    @PreUpdate
+//    private fun validateBeforePersist() {
+//        if (id == null) {
+//            throw IllegalStateException("Survey.id must not be null before persist/update")
+//        }
+//        if (groups == null || groups!!.isEmpty()) {
+//            throw IllegalStateException("Survey.groups must not be empty before persist/update")
+//        }
+//    }
 }
 
