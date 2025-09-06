@@ -38,8 +38,12 @@ dependencies {
 
     // Testing
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+    // JUnit Platform
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    // Embedded DB for tests
+    testRuntimeOnly("com.h2database:h2:2.3.232")
 
     // Kotest
     val kotestVersion = "5.9.1"
