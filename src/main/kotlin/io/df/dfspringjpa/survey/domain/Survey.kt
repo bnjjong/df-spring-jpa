@@ -38,12 +38,15 @@ class Survey internal constructor(
         cascade = [CascadeType.ALL],
         orphanRemoval = true
     )
-    val groups: MutableList<QuestionGroup> = mutableListOf()
+    lateinit var groups: MutableList<QuestionGroup>
+        protected set
 
     internal fun addGroup(group: QuestionGroup) {
         group.applySurvey(this)
+        if (!this::groups.isInitialized) {
+            groups = mutableListOf()
+        }
         groups.add(group)
-//        (groups ?: mutableListOf<QuestionGroup>().also { groups = it }).add(group)
     }
     // ================== child ==================
 

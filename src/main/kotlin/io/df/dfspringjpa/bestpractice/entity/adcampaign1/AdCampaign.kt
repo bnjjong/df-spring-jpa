@@ -8,8 +8,10 @@ import java.util.UUID
 
 @Embeddable
 data class Money(
-    @Column(name = "amount", nullable = false) val amount: Long, // 최소 화폐단위(원)
-    @Column(name = "currency", length = 3, nullable = false) val currency: String
+    @Column(name = "amount", nullable = false)
+    val amount: Long, // 최소 화폐단위(원)
+    @Column(name = "currency", length = 3, nullable = false)
+    val currency: String
 ) {
     init {
         require(amount >= 0)

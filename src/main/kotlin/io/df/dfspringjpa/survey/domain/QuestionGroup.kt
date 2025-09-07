@@ -55,11 +55,14 @@ class QuestionGroup internal  constructor(
         cascade = [CascadeType.ALL],
         orphanRemoval = true
     )
-    val questions: MutableList<Question> = mutableListOf()
+    lateinit var questions: MutableList<Question>
 
     // support function
     internal fun addQuestion(question: Question) {
         question.applyGroup(this)
+        if (!this::questions.isInitialized) {
+            questions = mutableListOf()
+        }
         questions.add(question)
     }
     // ================== child ==================

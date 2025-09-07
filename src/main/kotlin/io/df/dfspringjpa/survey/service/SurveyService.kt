@@ -4,6 +4,8 @@ import io.df.dfspringjpa.survey.api.SurveyCreateRequest
 import io.df.dfspringjpa.survey.domain.Question
 import io.df.dfspringjpa.survey.domain.QuestionGroup
 import io.df.dfspringjpa.survey.domain.Survey
+import io.df.dfspringjpa.survey.mapper.QuestionGroupMapper
+import io.df.dfspringjpa.survey.mapper.SurveyMapper
 import io.df.dfspringjpa.survey.repository.SurveyRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
