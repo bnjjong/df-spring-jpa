@@ -51,6 +51,10 @@ dependencies {
     testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
     testImplementation("io.kotest:kotest-property:$kotestVersion")
     testImplementation("io.kotest.extensions:kotest-extensions-spring:1.3.0")
+
+    // error
+    // https://mvnrepository.com/artifact/io.arrow-kt/arrow-core
+    implementation("io.arrow-kt:arrow-core:2.1.2")
 }
 
 kotlin {
