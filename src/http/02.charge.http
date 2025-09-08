@@ -1,0 +1,42 @@
+### Charge success example (assuming campaign exists with sufficient remain and quota)
+POST http://localhost:8080/api/exception2/campaigns/camp-001/charge
+Content-Type: application/json
+
+{
+  "amount": 1000
+}
+
+### Not found example (when campaign ID does not exist)
+POST http://localhost:8080/api/exception2/campaigns/unknown-id/charge
+Content-Type: application/json
+
+{
+  "amount": 100
+}
+
+### Not enough budget example (remain < amount)
+POST http://localhost:8080/api/exception2/campaigns/camp-low/charge
+Content-Type: application/json
+
+{
+  "amount": 999999999
+}
+
+### Quota exceeded example (amount > dailyQuota)
+POST http://localhost:8080/api/exception2/campaigns/camp-quota/charge
+Content-Type: application/json
+
+{
+  "amount": 100000
+}
+
+### Notes
+# - Start app: ./gradlew bootRun (or run DfSpringJpaApplication)
+# - Adjust campaign IDs and amounts to fit your DB state.
+# - Success 200 returns: { "campaignId", "amount", "txId" }
+# - Errors map to HTTP codes:
+#   404 NotFound => { error: "NOT_FOUND", id }
+#   400 NotEnoughBudget => { error: "NOT_ENOUGH_BUDGET", id, need, remain }
+#   400 QuotaExceeded => { error: "QUOTA_EXCEEDED", id, quota }
+#   400 InvalidSegmentRule => { error: "INVALID_SEGMENT_RULE", reason }
+#   503 Technical => { error: "TECHNICAL", where, message }

@@ -1,0 +1,27 @@
+### Create a campaign (success)
+POST http://localhost:8080/api/exception2/campaigns
+Content-Type: application/json
+
+{
+  "id": "camp-001",
+  "remain": 100000,
+  "dailyQuota": 50000
+}
+
+### Create invalid (blank id)
+POST http://localhost:8080/api/exception2/campaigns
+Content-Type: application/json
+
+{
+  "id": "",
+  "remain": 100000,
+  "dailyQuota": 50000
+}
+
+### Then charge (if created)
+POST http://localhost:8080/api/exception2/campaigns/camp-001/charge
+Content-Type: application/json
+
+{
+  "amount": 1000
+}

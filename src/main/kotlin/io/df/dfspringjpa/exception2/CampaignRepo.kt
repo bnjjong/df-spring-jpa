@@ -5,6 +5,7 @@ import arrow.core.Either
 interface CampaignRepo {
     fun find(id: String): Either<BillingError, Campaign>
     fun updateRemain(id: String, newRemain: Long): Either<BillingError, Unit>
+    fun create(c: Campaign): Either<BillingError, Unit>
 }
 
 // 최소 구현을 위한 예외 스텁 정의
@@ -27,4 +28,8 @@ class JdbcCampaignRepo(private val dao: Dao) : CampaignRepo {
     override fun updateRemain(id: String, newRemain: Long): Either<BillingError, Unit> =
         Either.catch { dao.updateRemain(id, newRemain) }
             .mapLeft { th -> BillingError.Technical("repo.updateRemain", th) }
+
+    override fun create(c: Campaign): Either<BillingError, Unit> =
+        Either.catch { dao.insertCampaign(c) }
+            .mapLeft { th -> BillingError.Technical("repo.create", th) }
 }

@@ -15,10 +15,14 @@ interface Dao {
     /** remain 값을 갱신. 대상이 없으면 NotFoundException */
     @Throws(NotFoundException::class)
     fun updateRemain(id: String, newRemain: Long)
+
+    /** 새 캠페인 생성. 이미 존재하면 IllegalStateException 등 던질 수 있음 */
+    fun insertCampaign(c: Campaign)
 }
 
 
 @Repository
+@org.springframework.context.annotation.Primary
 class JdbcDao(
     private val jdbc: NamedParameterJdbcTemplate
 ) : Dao {
@@ -65,5 +69,44 @@ class JdbcDao(
             // 대상이 없거나, (옵션) 낙관적 잠금 버전 불일치 등
             throw NotFoundException("campaign not found for update: $id")
         }
+    }
+
+    override fun insertCampaign(c: Campaign) {
+        val sql = """
+            INSERT INTO campaigns (id, remain, daily_quota)
+            VALUES (:id, :remain, :daily_quota)
+        """.trimIndent()
+        val params = MapSqlParameterSource()
+            .addValue("id", c.id)
+            .addValue("remain", c.remain)
+            .addValue("daily_quota", c.dailyQuota)
+        jdbc.update(sql, params)
+    }
+}
+
+@Repository
+class JpaDao(
+    private val jpa: CampaignJpaRepository
+) : Dao {
+    override fun selectCampaign(id: String): Campaign {
+        val entity = jpa.findById(id).orElseThrow { NotFoundException("campaign not found: $id") }
+        return Campaign(
+            id = entity.id,
+            remain = entity.remain,
+            dailyQuota = entity.dailyQuota
+        )
+    }
+
+    override fun updateRemain(id: String, newRemain: Long) {
+        val entity = jpa.findById(id).orElseThrow { NotFoundException("campaign not found for update: $id") }
+        entity.remain = newRemain
+        jpa.save(entity)
+    }
+
+    override fun insertCampaign(c: Campaign) {
+        if (jpa.existsById(c.id)) {
+            throw IllegalStateException("campaign already exists: ${'$'}{c.id}")
+        }
+        jpa.save(CampaignEntity(id = c.id, remain = c.remain, dailyQuota = c.dailyQuota))
     }
 }
