@@ -1,7 +1,10 @@
-package io.df.dfspringjpa.exception2
+package io.df.dfspringjpa.exception2.service
 
 import arrow.core.Either
 import arrow.core.left
+import io.df.dfspringjpa.exception2.BillingError
+import io.df.dfspringjpa.exception2.Campaign
+import io.df.dfspringjpa.exception2.CampaignRepo
 
 class CampaignService(private val repo: CampaignRepo) {
     data class CreateCommand(val id: String, val remain: Long, val dailyQuota: Long)

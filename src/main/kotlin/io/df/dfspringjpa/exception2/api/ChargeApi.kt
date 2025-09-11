@@ -5,8 +5,8 @@ import io.df.dfspringjpa.exception2.BillingClient
 import io.df.dfspringjpa.exception2.BillingError
 import io.df.dfspringjpa.exception2.BillingGateway
 import io.df.dfspringjpa.exception2.CampaignRepo
-import io.df.dfspringjpa.exception2.CampaignService
-import io.df.dfspringjpa.exception2.ChargeService
+import io.df.dfspringjpa.exception2.service.CampaignService
+import io.df.dfspringjpa.exception2.service.ChargeService
 import io.df.dfspringjpa.exception2.Dao
 import io.df.dfspringjpa.exception2.FakeBillingClient
 import io.df.dfspringjpa.exception2.JdbcCampaignRepo

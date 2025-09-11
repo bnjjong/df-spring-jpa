@@ -1,5 +1,6 @@
 package io.df.dfspringjpa.exception2
 
+import io.df.dfspringjpa.exception2.domain.CampaignEntity
 import org.springframework.dao.EmptyResultDataAccessException
 import org.springframework.jdbc.core.RowMapper
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource

@@ -1,8 +1,13 @@
-package io.df.dfspringjpa.exception2
+package io.df.dfspringjpa.exception2.service
 
 import arrow.core.Either
 import arrow.core.raise.either
 import arrow.core.raise.ensure
+import io.df.dfspringjpa.exception2.BillingError
+import io.df.dfspringjpa.exception2.BillingGateway
+import io.df.dfspringjpa.exception2.Campaign
+import io.df.dfspringjpa.exception2.CampaignRepo
+import io.df.dfspringjpa.exception2.Receipt
 
 class ChargeService(
     private val repo: CampaignRepo,

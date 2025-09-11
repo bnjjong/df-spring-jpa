@@ -1,4 +1,4 @@
-package io.df.dfspringjpa.exception2
+package io.df.dfspringjpa.exception2.domain
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
