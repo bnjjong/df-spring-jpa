@@ -36,6 +36,9 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     runtimeOnly("com.mysql:mysql-connector-j")
 
+    // Apache DataSketches for HyperLogLog
+    implementation("org.apache.datasketches:datasketches-java:6.1.1")
+
     // Testing
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 
