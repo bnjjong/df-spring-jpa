@@ -122,3 +122,6 @@ SELECT
 FROM audience
 WHERE (gender = '남자' AND age >= 20 AND age <= 30)
    OR (address IN ('서울', '경기', '인천') AND monthly_sales >= 10000000);
+
+
+CALL InsertAudienceData();

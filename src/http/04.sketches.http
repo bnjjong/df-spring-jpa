@@ -1,2 +1,20 @@
+### save gender of theta
+POST localhost:8080/api/audience/theta/gender
+Content-Type: application/json
+
+### save all of theta
+POST localhost:8080/api/audience/theta/all
+Content-Type: application/json
+
+### get gender of theta
+GET localhost:8080/api/audience/theta/gender
+Content-Type: application/json
+
+### get all of theta
+GET localhost:8080/api/audience/theta/all
+Content-Type: application/json
+
+
+### GET count
 GET localhost:8080/api/audience/segment/count
 Content-Type: application/json

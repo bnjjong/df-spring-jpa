@@ -104,12 +104,6 @@ data class Audience(
 
     )
 
-    override fun toString(): String {
-        return "Audience(id=$id, gender='$gender', address='$address', age=$age, " +
-                "monthlySales=$monthlySales, isHometaxSalary=$isHometaxSalary, " +
-                "membershipLevel='$membershipLevel', industryCategory='$industryCategory')"
-    }
-
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
