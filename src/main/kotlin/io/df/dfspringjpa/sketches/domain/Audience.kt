@@ -19,10 +19,6 @@ import java.time.LocalDateTime
     ]
 )
 data class Audience(
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    val id: Long = 0,
 
     /**
      * 성별 (남자/여자)
@@ -68,6 +64,10 @@ data class Audience(
 
 
 ) {
+
+    @EmbeddedId
+    var id: AudienceId = AudienceId()
+
     /**
      * JPA용 기본 생성자
      */
@@ -81,28 +81,6 @@ data class Audience(
         industryCategory = ""
     )
 
-    /**
-     * 편의 생성자 - 시스템 필드 제외
-     */
-    constructor(
-        gender: String,
-        address: String,
-        age: Int,
-        monthlySales: BigDecimal,
-        isHometaxSalary: Boolean,
-        membershipLevel: String,
-        industryCategory: String
-    ) : this(
-        id = 0,
-        gender = gender,
-        address = address,
-        age = age,
-        monthlySales = monthlySales,
-        isHometaxSalary = isHometaxSalary,
-        membershipLevel = membershipLevel,
-        industryCategory = industryCategory
-
-    )
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
