@@ -80,7 +80,7 @@ class AudienceService(
                     .setSeed(ThetaConstants.THETA_SKETCH_SEED)
                     .build()
             }
-            sketch.update(audience.id)
+            sketch.update(audience.id.toString())
         }
         genderMap.forEach { (key, value) ->
             val theta = AudienceTheta(
@@ -102,7 +102,7 @@ class AudienceService(
                     .setSeed(ThetaConstants.THETA_SKETCH_SEED)
                     .build()
             }
-            sketch.update(audience.id)
+            sketch.update(audience.id.toString())
         }
         genderMap.forEach { (key, value) ->
             val theta = AudienceTheta(
