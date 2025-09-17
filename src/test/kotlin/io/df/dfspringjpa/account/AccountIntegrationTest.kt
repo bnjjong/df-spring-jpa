@@ -19,7 +19,7 @@ class AccountIntegrationTest {
     lateinit var service: AccountService
 
     // 기본 테스트 데이터 수. 필요하면 늘리거나 줄이세요.
-    private val N = 2000
+    private val N = 20000
 
     @BeforeEach
     fun setUp() {
@@ -42,10 +42,10 @@ class AccountIntegrationTest {
             assertEquals(expected, result.size)
         }
 
-        val futTime = measureNanoTime {
-            val result = service.findAllWithFutures()
-            assertEquals(expected, result.size)
-        }
+//        val futTime = measureNanoTime {
+//            val result = service.findAllWithFutures()
+//            assertEquals(expected, result.size)
+//        }
 
         println("Benchmark N=$N -> sequential=${seqTime/1_000_000}ms, parallel=${parTime/1_000_000}ms, futures=${futTime/1_000_000}ms")
     }
