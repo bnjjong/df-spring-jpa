@@ -21,8 +21,14 @@ open class AccountService(private val repository: AccountRepository) {
     // 단건 조회
     fun findById(id: Long): Account? = repository.findById(id).orElse(null)
 
-    // 전체를 한 번에 조회 (단일 쿼리)
-    fun findAllSequential(): List<Account> = repository.findAllAccounts()
+    // 전체를 한 번에 조회 (단일 쿼리) — 비교 기준 외에 참고용
+    fun findAllBatch(): List<Account> = repository.findAllAccounts()
+
+    // 전체 id를 순차적으로 순회하며 단건 조회 (Stream 대비 순차 처리)
+    fun findAllSequential(): List<Account> {
+        val ids = repository.findAllIds()
+        return fetchSequentialByIds(ids)
+    }
 
     // 전체 id를 가져와서 각 id별로 개별 조회를 병렬로 수행 (여러 쿼리, 병렬)
     fun findAllParallel(parallelThreshold: Int = DEFAULT_PARALLEL_THRESHOLD): List<Account> {
