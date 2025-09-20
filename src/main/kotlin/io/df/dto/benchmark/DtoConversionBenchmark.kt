@@ -117,7 +117,7 @@ class DtoConversionBenchmark : ApplicationRunner {
 
     private companion object {
         private val log = LoggerFactory.getLogger(DtoConversionBenchmark::class.java)
-        private const val ENTITY_COUNT = 1_000
+        private const val ENTITY_COUNT = 1_000_000
         private const val WARM_UP_ITERATIONS = 2
         private const val TAG_COUNT = 10
         private const val METADATA_COUNT = 5
